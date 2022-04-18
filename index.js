@@ -1,51 +1,39 @@
-const nodemailer = require("nodemailer");
-const dotenv = require('dotenv')
-const {google} = require('googleapis');
-
+import express  from "express";
+import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
+import cors from 'cors';
+import { sendMail } from './mailerApp.js';
+import {mailRouter} from './routes/mailSend.js';
 
 dotenv.config();  // getting all env keys from here
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
-const RIDERECT_URI ='https://developers.google.com/oauthplayground';
-const oAuth2Client =  new google.auth.OAuth2(CLIENT_ID,CLIENT_SECRET,RIDERECT_URI);
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })       //Creating access Token freshly using refresh token
+const app = express()
+
+app.use(express.json());
+// const MONGO_URL = "mongodb://localhost";
+
+app.use(cors());
+const MONGO_URL = process.env.MONGO_URL;
+
+//To create connection 
+async function createConnection(){
+    const client = new MongoClient(MONGO_URL);
+    await client.connect();
+    console.log("MongoDB connected");
+    return client;
+};
+
+//calling that function 
+export const client = await createConnection();        //await outside async fun allowed only in "type" :"module"
+
+const PORT = process.env.PORT;
+
+app.listen(PORT,()=>{
+    console.log(`Server is up and running at ${PORT}`)
+})
+
+app.use('/mailsent',mailRouter);
 
 
-
-async function sendMail() {
- 
-    try {
-        const accessToken = await oAuth2Client.getAccessToken();
-
-        const transport = nodemailer.createTransport({
-            service :'gmail',
-            auth:{
-                type:'OAuth2',
-                user:'bulkemailtool@gmail.com',
-                clientId:CLIENT_ID,
-                clientSecret:CLIENT_SECRET,
-                refreshToken:REFRESH_TOKEN,
-                accessToken:accessToken
-            }
-        })
-        
-        // send mail with defined transport object
-        const mailOptions={
-            from:'Karthik👻 <bulkemailtool@gmail.com>',
-            to: "kk202122@gmail.com, kalam1993@gmail.com", // list of receivers
-            subject: "Hello ", // Subject line
-            text: "Hello world?", // plain text body
-            html: "<b>Hello world?</b>", // html body
-        }
-
-        const result = await transport.sendMail(mailOptions)
-        return result
-    } catch (error) {
-        return error;
-    }
-  }
-  
 sendMail().then(result => console.log('Email Sent ', result))
 .catch((error)=>console.log(error.message))
