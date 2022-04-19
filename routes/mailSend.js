@@ -1,16 +1,27 @@
 import express  from "express";
 const router = express.Router();
+import { getAllData, getDataByID, createData, deleteDataByID, updateDataByID} from '../helper.js'
 
 
-
-//get data by ID 
-async function getDataByID(id){
-    // ObjectID function is used to change the id to object ID 
-    return await client.db('bulk-email')
-    .collection('broadcast')
-    .findOne({ _id: ObjectId(id)});
-}
-
+router
+    .route("/")
+    .get(async(req,res)=>{
+        console.log(req.query)
+        const filter=req.query;
+        const filtData = await getAllData(filter) ;
+        res.send(filtData)
+        
+        
+    })
+    .post(async(req,res)=>{
+    
+    const data = req.body;
+    console.log(`Incoming data ${data}`)
+    const result = createData(data) ;
+    res.send(result)
+    
+    
+});
 router
     .route("/:id")
     .get(async(req,res)=>{
