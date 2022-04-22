@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(cors());
 const MONGO_URL = process.env.MONGO_URL;
 
-
 //To create connection 
 async function createConnection(){
     const client = new MongoClient(MONGO_URL);
