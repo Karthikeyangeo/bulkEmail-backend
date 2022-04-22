@@ -33,8 +33,8 @@ export async function sendMail() {
             from: 'Karthik👻 <bulkemailtool@gmail.com>',
             to: "kk202122@gmail.com, kalam1993@gmail.com",
             subject: "Hello ",
-            text: "Hello world?",
-            html: "<b>Hello world?</b>", // html body
+            text: "hi <br />how are you <br />how do you do ",
+            html: "hi <br />how are you <br />how do you do  ", // html body
         };
 
         const result = await transport.sendMail(mailOptions);

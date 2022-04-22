@@ -26,14 +26,17 @@ async function createConnection(){
 //calling that function 
 export const client = await createConnection();        //await outside async fun allowed only in "type" :"module"
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT,()=>{
     console.log(`Server is up and running at ${PORT}`)
 })
 
+app.get('/',(req,res)=>{
+    res.send('Welcome to Email Backend Server')
+})
 app.use('/mailsent',mailRouter);
 
 
 sendMail().then(result => console.log('Email Sent ', result))
-.catch((error)=>console.log(error.message))
+.catch((error)=>console.log(error.message)) 
