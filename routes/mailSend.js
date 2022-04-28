@@ -23,12 +23,13 @@ router
     
 });
 router
-    .route("/:id")
+    .route("/successfull")
     .get(async(req,res)=>{
-        const {id} = req.params;
-        const data = await getDataByID(id);
-        console.log(data);
-        data ? res.send(data): res.status(404).send({msg:`Data not found`});
+        console.log(req.query)
+        const filter=req.query;
+        const filtData = await getAllData(filter) ;
+        console.log(filtData)
+        res.send(filtData)
     });
 
 export const mailRouter = router;

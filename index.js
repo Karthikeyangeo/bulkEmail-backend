@@ -35,7 +35,7 @@ app.listen(PORT,()=>{
 app.get('/',(req,res)=>{
     res.send('Welcome to Email Backend Server')
 })
-app.use('/mailsent',mailRouter);
+app.use('/mailForm',mailRouter);
 
 
 sendMail().then(result => console.log('Email Sent ', result))
