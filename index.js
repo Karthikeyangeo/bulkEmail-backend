@@ -2,7 +2,7 @@ import express  from "express";
 import dotenv from 'dotenv';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
-import { sendMail } from './mailerApp.js';
+
 import {mailRouter} from './routes/mailSend.js';
 
 dotenv.config();  // getting all env keys from here
@@ -39,5 +39,3 @@ app.get('/',(req,res)=>{
 app.use('/mailForm',mailRouter);
 
 
-sendMail().then(result => console.log('Email Sent ', result))
-.catch((error)=>console.log(error.message)) 

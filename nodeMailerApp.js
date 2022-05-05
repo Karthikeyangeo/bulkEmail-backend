@@ -11,7 +11,7 @@ const oAuth2Client =  new google.auth.OAuth2(CLIENT_ID,CLIENT_SECRET,RIDERECT_UR
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })       //Creating access Token freshly using refresh token
 
 
-export async function sendMail() {
+export async function sendMail(data) {
 
     try {
         const accessToken = await oAuth2Client.getAccessToken();
@@ -30,11 +30,13 @@ export async function sendMail() {
 
         // send mail with defined transport object
         const mailOptions = {
-            from: 'Karthik👻 <bulkemailtool@gmail.com>',
-            to: "kk202122@gmail.com, kalam1993@gmail.com",
-            subject: "Hello ",
-            text: "hi <br />how are you <br />how do you do ",
-            html: "hi <br />how are you <br />how do you do  ", // html body
+            from: `${data.name} <bulkemailtool@gmail.com>`,
+            to: `${data.to}`,
+            cc:`${data.cc}`,
+            bcc:`${data.bcc}`,
+            subject: `${data.subject}`,
+            // text: `${data.message}`,
+            html: `${data.message}`, // html body
         };
 
         const result = await transport.sendMail(mailOptions);
