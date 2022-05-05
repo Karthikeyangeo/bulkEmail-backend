@@ -23,6 +23,7 @@ async function createConnection(){
     return client;
 };
 
+
 //calling that function 
 export const client = await createConnection();        //await outside async fun allowed only in "type" :"module"
 
