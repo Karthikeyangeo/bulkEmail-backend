@@ -27,7 +27,7 @@ async function createConnection(){
 export const client = await createConnection();        //await outside async fun allowed only in "type" :"module"
 
 const PORT = process.env.PORT || 5000;
-
+ 
 app.listen(PORT,()=>{
     console.log(`Server is up and running at ${PORT}`)
 })
