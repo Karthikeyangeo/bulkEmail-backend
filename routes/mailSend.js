@@ -34,6 +34,6 @@ router
         const filtData = await getAllData(filter) ;
         console.log(filtData)
         res.send(filtData)
-    });
+    }); 
 
 export const mailRouter = router;
