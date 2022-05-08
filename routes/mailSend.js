@@ -2,6 +2,7 @@ import express  from "express";
 const router = express.Router();
 import { getAllData, getDataByID, createData, deleteDataByID, updateDataByID} from '../helper.js'
 import { sendMail } from '../nodeMailerApp.js';
+import {auth} from '../middleware/auth.js'
 
 router
     .route("/")
@@ -13,7 +14,7 @@ router
         
         
     })
-    .post(async(req,res)=>{
+    .post(auth,async(req,res)=>{
     
         const data = req.body;       //req.body[0] is used since it will taken as array and only one value is there
         console.log(`Incoming data ${data}`)
