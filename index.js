@@ -2,7 +2,7 @@ import express  from "express";
 import dotenv from 'dotenv';
 import { MongoClient } from 'mongodb';
 import cors from 'cors';
-
+import { usersRouter } from "./routes/users.js";
 import {mailRouter} from './routes/mailSend.js';
 
 dotenv.config();  // getting all env keys from here
@@ -34,8 +34,9 @@ app.listen(PORT,()=>{
 })
 
 app.get('/',(req,res)=>{
-    res.send('Welcome to Email Backend Server')
+    res.send('Welcome to Email Backend Server') 
 })
-app.use('/mailForm',mailRouter);
+app.use('/mailForm',mailRouter);    // Whenever mailForm is coming, it will be routed to moviesRouter
+app.use("/users",usersRouter);    // For signup and login
 
 
