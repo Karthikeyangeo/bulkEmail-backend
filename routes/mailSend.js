@@ -6,7 +6,7 @@ import {auth} from '../middleware/auth.js'
 
 router
     .route("/")
-    .get(async(req,res)=>{
+    .get(auth,async(req,res)=>{
         console.log(req.query)
         const filter=req.query;
         const filtData = await getAllData(filter) ;
@@ -26,14 +26,5 @@ router
         .catch((error)=>console.log(error.message)) 
     
 });
-router
-    .route("/successfull")
-    .get(async(req,res)=>{
-        console.log(req.query)
-        const filter=req.query;
-        const filtData = await getAllData(filter) ;
-        console.log(filtData)
-        res.send(filtData)
-    }); 
 
 export const mailRouter = router;

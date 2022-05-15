@@ -21,7 +21,7 @@ async function createUsers(data) {
   
   // get username
   async function getUserByName(username) {
-    return await client.db("bulk-email").collection("users").findOne({ username:username });
+    return await client.db("bulk-email").collection("users").find({ username:username }).toArray();
   }
 
 
