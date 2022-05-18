@@ -36,7 +36,7 @@ app.listen(PORT,()=>{
 app.get('/',(req,res)=>{
     res.send('Welcome to Email Backend Server')  
 })
-app.use('/mailForm',mailRouter);    // Whenever mailForm is coming, it will be routed to moviesRouter
+app.use('/mailForm',mailRouter);    // Whenever mailForm is coming, it will be routed to mailRouter
 app.use("/users",usersRouter);    // For signup and login
 
 
