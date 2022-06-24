@@ -33,7 +33,7 @@ router
 
         const hashedPassword = await genPassword(password);
 
-        const result = await createUsers({username:username,password:hashedPassword,date:date,createdAt:displayDate});
+        const result = await createUsers({username:username,password:hashedPassword,date:date,userCreatedAt:displayDate});
     
         response.status(200).send({message:'User Registered successfully', status:true})
     });
