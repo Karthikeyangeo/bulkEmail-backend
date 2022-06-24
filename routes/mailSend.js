@@ -25,6 +25,7 @@ router
         sendMail(emailData).then(result => console.log('Email Sent ', result))
         .catch((error)=>console.log(error.message)) 
     
+        
 });
 
 export const mailRouter = router;
