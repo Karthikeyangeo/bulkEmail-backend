@@ -13,7 +13,7 @@ router
     .route("/signup")
     .post(async(request,response)=>{
         //POST Method
-        const  {username,password} = request.body;
+        const  {username,password,date,displayDate} = request.body;
         
         const isUserExist  = await getUserByName(username);
         console.log(`userExist ${isUserExist}`)
@@ -33,7 +33,7 @@ router
 
         const hashedPassword = await genPassword(password);
 
-        const result = await createUsers({username:username,password:hashedPassword});
+        const result = await createUsers({username:username,password:hashedPassword,date:date,createdAt:displayDate});
     
         response.status(200).send({message:'User Registered successfully', status:true})
     });
